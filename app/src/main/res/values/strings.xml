@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MySqlIntegration</string>
+    <string name="name">Name</string>
+    <string name="designation">Designation</string>
+    <string name="department">Department</string>
+    <string name="cabin">Cabin</string>
+    <string name="email">Email</string>
+    <string name="save">Save</string>
+    <string name="facName">Dr. Debashis Adhikari</string>
+    <string name="facDesignation">Assistant Professor</string>
+    <string name="cabin1">Cabin:</string>
+    <string name="cabinNo">A007</string>
+    <string name="departmentValue">SEEE- School of Electrical and Electronics Engineering</string>
+    <string name="emailValue">pon.harshbardhanan@vitbhopal.ac.in</string>
+    <string name="department1">Department:</string>
+    <string name="search">Search</string>
+    <string name="password">Password</string>
+    <string name="createNewAcc">Create New Account</string>
+    <string name="welcome">WELCOME</string>
+    <string name="login">LOGIN</string>
+    <string name="createAcc">Create Account</string>
+
+</resources>
