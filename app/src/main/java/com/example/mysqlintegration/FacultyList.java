@@ -1,5 +1,7 @@
 package com.example.mysqlintegration;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,11 +20,13 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,16 +35,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FacultyList extends AppCompatActivity {
 
     public RecyclerView recyclerView=null;
     private ArrayList<Faculty> facultyList= new ArrayList<Faculty>();
     private String url="https://recapitulative-cake.000webhostapp.com/getFaculty.php";
+    private String deleteUrl="https://recapitulative-cake.000webhostapp.com/deleteItem.php";
     private FloatingActionButton fab=null;
     private SearchView searchView;
     private SwipeRefreshLayout swipeRefreshLayout=null;
-
+    public MyAdapter2 myAdapter;
+    public MenuItem delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +96,7 @@ public class FacultyList extends AppCompatActivity {
                         facultyList.removeAll(facultyList);
 
                         facultyList.addAll(faculties);
-                        MyAdapter2 myAdapter=new MyAdapter2(FacultyList.this,facultyList);
+                        myAdapter=new MyAdapter2(FacultyList.this,facultyList,delete);
                         recyclerView=findViewById(R.id.recyclerView);
                         recyclerView.setAdapter(myAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(FacultyList.this));
@@ -119,7 +127,9 @@ public class FacultyList extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.search_menu,menu);
+        menuInflater.inflate(R.menu.home_menus,menu);
+        delete=menu.findItem(R.id.delete);
+        delete.setVisible(false);
         MenuItem menuItem=menu.findItem(R.id.search);
         searchView=(SearchView) menuItem.getActionView();
 
@@ -127,10 +137,6 @@ public class FacultyList extends AppCompatActivity {
 //        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
 //        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
 //        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-
-
-
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -147,13 +153,57 @@ public class FacultyList extends AppCompatActivity {
                         arrayList.add(facultyList.get(i));
                     }
                 }
-                MyAdapter2 myAdapter2=new MyAdapter2(FacultyList.this,arrayList);
+                MyAdapter2 myAdapter2=new MyAdapter2(FacultyList.this,arrayList,delete);
                 recyclerView.setAdapter(myAdapter2);
                 recyclerView.setLayoutManager(new LinearLayoutManager(FacultyList.this));
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.delete:{
+                if(facultyList.size()>1)
+                    facultyList.removeAll(myAdapter.updatedList);
+                else if(facultyList.size()==1)
+                    facultyList.clear();
+                MyAdapter2 newMyAdapter = new MyAdapter2(FacultyList.this, facultyList,delete);
+                recyclerView.setAdapter(newMyAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                for(int i=0;i<myAdapter.updatedList.size();i++){
+                    deleteFromServer(myAdapter.updatedList.get(i));
+                }
+                delete.setVisible(false);
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteFromServer(Faculty faculty) {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, deleteUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(FacultyList.this, response, Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(FacultyList.this, error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap=new HashMap<String ,String>();
+                hashMap.put("user",faculty.email.toString().trim());
+                return hashMap;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     @Override
