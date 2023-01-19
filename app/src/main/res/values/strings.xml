@@ -19,5 +19,6 @@
     <string name="welcome">WELCOME</string>
     <string name="login">LOGIN</string>
     <string name="createAcc">Create Account</string>
+    <string name="delete">Delete</string>
 
 </resources>

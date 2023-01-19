@@ -29,7 +29,7 @@ public class SignUp extends AppCompatActivity {
     private TextInputEditText signUpEmail=null;
     private TextInputEditText signUpPassword=null;
     private Button createAccount=null;
-    private String url="http://192.168.29.116/StudentGuidance/signup.php";
+    private String url="https://recapitulative-cake.000webhostapp.com/signup.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

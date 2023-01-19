@@ -7,6 +7,7 @@ public class Faculty{
     public String department;
     public String cabinNo;
     public String email;
+    public Boolean isSelected;
 
 
     Faculty(String image, String name, String designation,String department,String cabinNo,String email){
@@ -16,6 +17,7 @@ public class Faculty{
         this.department=department;
         this.cabinNo=cabinNo;
         this.email=email;
+        this.isSelected=false;
 
 
 

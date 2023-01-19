@@ -28,7 +28,7 @@ public class LogIn extends AppCompatActivity {
     private TextInputEditText logInEmail=null;
     private TextInputEditText logInPassword=null;
     private Button login=null;
-    private String url="http://192.168.29.116/StudentGuidance/login.php";
+    private String url="https://recapitulative-cake.000webhostapp.com/login.php";
 
 
     @Override
