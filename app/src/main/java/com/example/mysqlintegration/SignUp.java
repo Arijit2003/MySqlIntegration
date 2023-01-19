@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,13 +52,13 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
                 if(!Objects.requireNonNull(signUpName.getText()).toString().equals("") && !Objects.requireNonNull(signUpEmail.getText()).toString().equals("") &&!Objects.requireNonNull(signUpPassword.getText()).toString().equals("")) {
                     postInServer();
+
                 }
                 else{
                     Toast.makeText(SignUp.this, "Fill all the fields", Toast.LENGTH_SHORT).show();
+
                 }
-                signUpName.setText("");
-                signUpEmail.setText("");
-                signUpPassword.setText("");
+
             }
         });
     }
@@ -66,11 +67,26 @@ public class SignUp extends AppCompatActivity {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(SignUp.this, response.toString(), Toast.LENGTH_SHORT).show();
                 if(Objects.equals(response, "inserted")){
                     Intent intent=new Intent(SignUp.this,FacultyList.class);
                     startActivity(intent);
+                    SharedPreferences sp=getSharedPreferences("credentials",MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.clear();
+                    editor.apply();
+                    signUpName.setText("");
+                    signUpEmail.setText("");
+                    signUpPassword.setText("");
                     finish();
+                }
+                else if(Objects.equals(response,"exist")){
+                    Toast.makeText(SignUp.this, Objects.requireNonNull(signUpEmail.getText()).toString()+" already exist", Toast.LENGTH_SHORT).show();
+                    signUpName.setText("");
+                    signUpEmail.setText("");
+                    signUpPassword.setText("");
+                }
+                else{
+                    Toast.makeText(SignUp.this, response, Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
