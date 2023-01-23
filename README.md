@@ -11,6 +11,7 @@ This project includes mysql integration with android using Volley.
 - Search button
 - Info page
 - Add Button(FAB) to add a new item in the list 
+- Delete button(It delets an item from the list)
 
 
 ## Demo
