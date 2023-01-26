@@ -12,7 +12,7 @@ This project includes mysql integration with android using Volley.
 - Info page
 - Add Button(FAB) to add a new item in the list 
 - Delete button(It delets an item from the list)
--- Edit a list item.
+- Edit a list item.
 
 
 ## Demo
