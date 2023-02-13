@@ -23,10 +23,15 @@
         <entry key="..\:/Android Project/MySqlIntegration/app/src/main/res/menu/menu_delete.xml" value="0.1" />
         <entry key="..\:/Android Project/MySqlIntegration/app/src/main/res/menu/menus.xml" value="0.2" />
         <entry key="..\:/Android Project/MySqlIntegration/app/src/main/res/menu/search_menu.xml" value="0.22083333333333333" />
+        <entry key="..\:/Android Projects/MySqlIntegration/app/src/main/res/drawable/layout_background.xml" value="0.1535" />
+        <entry key="..\:/Android Projects/MySqlIntegration/app/src/main/res/drawable/layout_background2.xml" value="0.1535" />
         <entry key="..\:/Android Projects/MySqlIntegration/app/src/main/res/layout/activity_faculty_list.xml" value="0.16576086956521738" />
         <entry key="..\:/Android Projects/MySqlIntegration/app/src/main/res/layout/activity_profile.xml" value="0.152" />
+        <entry key="..\:/Android Projects/MySqlIntegration/app/src/main/res/layout/add_faculty.xml" value="0.16576086956521738" />
         <entry key="..\:/Android Projects/MySqlIntegration/app/src/main/res/layout/list_item.xml" value="0.16576086956521738" />
         <entry key="..\:/Android Projects/MySqlIntegration/app/src/main/res/menu/edit_menu.xml" value="0.21979166666666666" />
+        <entry key="..\:/Android Projects/MySqlIntegration/app/src/main/res/menu/home_menus.xml" value="0.1" />
+        <entry key="..\:/Android Projects/MySqlIntegration/app/src/main/res/menu/menus.xml" value="0.22083333333333333" />
       </map>
     </option>
   </component>

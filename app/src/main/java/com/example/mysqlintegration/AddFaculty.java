@@ -70,12 +70,15 @@ public class AddFaculty extends AppCompatActivity {
             registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {
-                    facImage.setImageURI(result);
-                    ImageUri=result.toString();
+
                     try {
-                        InputStream inputStream= getContentResolver().openInputStream(result);
-                        bitmap= BitmapFactory.decodeStream(inputStream);
-                        encodeBitmapImage(bitmap);
+                        if(result!=null) {
+                            facImage.setImageURI(result);
+                            ImageUri = result.toString();
+                            InputStream inputStream = getContentResolver().openInputStream(result);
+                            bitmap = BitmapFactory.decodeStream(inputStream);
+                            encodeBitmapImage(bitmap);
+                        }
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }

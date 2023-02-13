@@ -213,4 +213,5 @@ public class FacultyList extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-    }}
+    }
+}
